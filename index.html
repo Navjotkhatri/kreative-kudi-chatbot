@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreative Kudi AI Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="chatbot-widget">
+        <!-- Header -->
+        <div class="kk-header">
+            <div class="kk-header-inner">
+                <div class="kk-logo">
+                    <img src="assets/face c2.png" alt="Kreative Kudi Logo">
+                </div>
+                <div class="kk-header-text">
+                    <h1 class="kk-title">
+                        <span class="kk-title-gradient">Kreative Kudi</span>
+                        <span class="kk-title-black">AI Assistant</span>
+                    </h1>
+                    <p class="kk-subtitle">✨ Welcome to Kreative Kudi</p>
+                </div>
+                
+                <button class="kk-close-button" onclick="closeChatbot()">✕</button>
+            </div>
+
+        </div>
+
+        <!-- Content Area -->
+        <div class="kk-content" id="contentArea">
+            <!-- Welcome Card -->
+            <div class="kk-welcome">
+                <div class="kk-welcome-icon">
+                    <img src="assets/hello.gif" alt="Welcome">
+                </div>
+                <div class="kk-welcome-content">
+                    <div class="kk-welcome-title">Hello! How can I help you today?</div>
+                    <div class="kk-welcome-text">Ask me about our services, courses, pricing, projects, team, contact
+                        details and more.</div>
+                </div>
+            </div>
+
+            <!-- Quick Questions -->
+            <div class="kk-section-title">✨ Quick questions</div>
+            <div class="kk-questions-grid">
+                <div class="kk-question-card kk-question-founder"
+                    onclick="selectQuestion('Who is the founder of Kreative Kudi?')">
+                    <div class="kk-question-icon">
+                        <img src="assets/icons8-popular-man-64.png" alt="">
+                    </div>
+                    <div class="kk-question-title">
+                        Founder
+                        <span class="kk-question-arrow">→</span>
+                    </div>
+                    <div class="kk-question-description">Who is the founder of Kreative Kudi?</div>
+                </div>
+
+                <div class="kk-question-card kk-question-location"
+                    onclick="selectQuestion('Where is Kreative Kudi based?')">
+                    <div class="kk-question-icon">
+                        <img src="assets/icons8-location-48.png" alt="">
+                    </div>
+                    <div class="kk-question-title">
+                        Location
+                        <span class="kk-question-arrow">→</span>
+                    </div>
+                    <div class="kk-question-description">Where is Kreative Kudi based?</div>
+                </div>
+
+                <div class="kk-question-card kk-question-services"
+                    onclick="selectQuestion('What services does Kreative Kudi offer?')">
+                    <div class="kk-question-icon">
+                        <img src="assets/icons8-service-64 (1).png" alt="">
+                    </div>
+                    <div class="kk-question-title">
+                        Services
+                        <span class="kk-question-arrow">→</span>
+                    </div>
+                    <div class="kk-question-description">What services does Kreative Kudi offer?</div>
+                </div>
+
+                <div class="kk-question-card kk-question-courses"
+                    onclick="selectQuestion('What courses are available at Kreative Kudi?')">
+                    <div class="kk-question-icon">
+                        <img src="assets/icons8-task-64.png" alt="">
+                    </div>
+                    <div class="kk-question-title">
+                        Courses
+                        <span class="kk-question-arrow">→</span>
+                    </div>
+                    <div class="kk-question-description">What courses are available?</div>
+                </div>
+            </div>
+
+            <!-- Powered By -->
+            <div class="kk-powered">
+                🛡️ Powered by <strong>Kreative Kudi Knowledge Base</strong>
+            </div>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div class="kk-chat-messages hidden" id="chatMessages"></div>
+
+        <!-- Chat Input Area -->
+        <div class="kk-input-area">
+            <input type="text" id="chatInput" placeholder="Ask something about Kreative Kudi..."
+                onkeypress="handleKeyPress(event)">
+            <button class="kk-send-btn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+
+    <!-- Floating Chatbot Button -->
+    <div id="kk-chat-greeting" class="kk-chat-greeting">
+        Hello, may I help you?
+    </div>
+    <button id="kk-chat-toggle" class="kk-chat-toggle" type="button" onclick="openChatbot()">
+        <img src="assets/final_charater.png" alt="Chat with Kreative Kudi">
+    </button>
+
+</body>
+
+</html>
+</body>
+
+</html>
