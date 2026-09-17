@@ -297,9 +297,22 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('API URL:', CONFIG.API_URL);
 });
 
+function notifyParentChatbotState(state) {
+    if (window.parent !== window) {
+        window.parent.postMessage(
+            {
+                type: 'KK_CHATBOT_STATE',
+                state: state
+            },
+            'https://www.kreativekudi.com'
+        );
+    }
+}
+
 function closeChatbot() {
     const chatbot = document.querySelector('.chatbot-widget');
     const toggleButton = document.getElementById('kk-chat-toggle');
+    const liveDot = document.querySelector('.kk-live-dot');
 
     if (chatbot) {
         chatbot.style.display = 'none';
@@ -308,12 +321,19 @@ function closeChatbot() {
     if (toggleButton) {
         toggleButton.style.display = 'flex';
     }
+
+    // Show live status again when chatbot is closed
+    if (liveDot) {
+        liveDot.style.display = 'block';
+    }
 }
 
 function openChatbot() {
     const chatbot = document.querySelector('.chatbot-widget');
     const toggleButton = document.getElementById('kk-chat-toggle');
     const greeting = document.getElementById('kk-chat-greeting');
+    const liveDot = document.querySelector('.kk-live-dot');
+    const unreadBadge = document.getElementById('kk-unread-badge');
 
     if (chatbot) {
         chatbot.style.display = 'flex';
@@ -325,6 +345,15 @@ function openChatbot() {
 
     if (greeting) {
         greeting.style.display = 'none';
+    }
+
+    // Hide live status and unread notification
+    if (liveDot) {
+        liveDot.style.display = 'none';
+    }
+
+    if (unreadBadge) {
+        unreadBadge.style.display = 'none';
     }
 }
 
@@ -348,9 +377,9 @@ window.addEventListener('load', function () {
             // Hide after 5 seconds
             setTimeout(function () {
                 greeting.classList.remove('show');
-            }, 5000);
+            }, 8000);
         }
 
-    }, 3000);
+    }, 5000);
 
 });

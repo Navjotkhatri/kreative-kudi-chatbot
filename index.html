@@ -95,11 +95,6 @@
                     <div class="kk-question-description">What courses are available?</div>
                 </div>
             </div>
-
-            <!-- Powered By -->
-            <div class="kk-powered">
-                🛡️ Powered by <strong>Kreative Kudi Knowledge Base</strong>
-            </div>
         </div>
 
         <!-- Chat Messages Area -->
@@ -111,22 +106,35 @@
                 onkeypress="handleKeyPress(event)">
             <button class="kk-send-btn" onclick="sendMessage()">➤</button>
         </div>
+        <div class="kk-powered">
+            🛡️ Powered by
+            <a href="#" target="_blank" rel="noopener noreferrer">
+                Kreative AI
+            </a>
+        </div>
     </div>
 
     <script src="script.js"></script>
 
 
     <!-- Floating Chatbot Button -->
+    <!-- Floating Chatbot Button -->
     <div id="kk-chat-greeting" class="kk-chat-greeting">
         Hello, may I help you?
     </div>
-    <button id="kk-chat-toggle" class="kk-chat-toggle" type="button" onclick="openChatbot()">
-        <img src="assets/final_charater.png" alt="Chat with Kreative Kudi">
-    </button>
+    
+    <div class="kk-chat-toggle-wrapper">
+    
+        <button id="kk-chat-toggle" class="kk-chat-toggle" type="button" onclick="openChatbot()">
+            <img src="assets/final_charater.png" alt="Chat with Kreative Kudi">
+        </button>
+    
+        <span class="kk-live-dot"></span>
+    
+        <span id="kk-unread-badge" class="kk-unread-badge">1</span>
+    
+    </div>
 
-</body>
-
-</html>
 </body>
 
 </html>
