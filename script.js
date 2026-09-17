@@ -326,6 +326,7 @@ function closeChatbot() {
     if (liveDot) {
         liveDot.style.display = 'block';
     }
+    notifyParentChatbotState("closed");
 }
 
 function openChatbot() {
@@ -355,6 +356,7 @@ function openChatbot() {
     if (unreadBadge) {
         unreadBadge.style.display = 'none';
     }
+    notifyParentChatbotState("open");
 }
 
 /* ========================================================
