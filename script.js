@@ -309,54 +309,102 @@ function notifyParentChatbotState(state) {
     }
 }
 
-function closeChatbot() {
-    const chatbot = document.querySelector('.chatbot-widget');
-    const toggleButton = document.getElementById('kk-chat-toggle');
-    const liveDot = document.querySelector('.kk-live-dot');
+function openChatbot() {
 
-    if (chatbot) {
-        chatbot.style.display = 'none';
-    }
+    /*
+     * Tell the parent to enlarge the iframe first.
+     */
+    window.parent.postMessage(
+        {
+            type: "KK_CHATBOT_STATE",
+            state: "open"
+        },
+        "*"
+    );
 
-    if (toggleButton) {
-        toggleButton.style.display = 'flex';
-    }
+    /*
+     * Give the parent iframe one animation frame
+     * to resize before displaying the panel.
+     */
+    requestAnimationFrame(function () {
 
-    // Show live status again when chatbot is closed
-    if (liveDot) {
-        liveDot.style.display = 'block';
-    }
-    notifyParentChatbotState("closed");
+        requestAnimationFrame(function () {
+
+            const chatbot =
+                document.querySelector(".chatbot-widget");
+
+            const toggleButton =
+                document.getElementById("kk-chat-toggle");
+
+            const greeting =
+                document.getElementById("kk-chat-greeting");
+
+            const liveDot =
+                document.querySelector(".kk-live-dot");
+
+            const unreadBadge =
+                document.getElementById("kk-unread-badge");
+
+            if (chatbot) {
+                chatbot.style.display = "flex";
+            }
+
+            if (toggleButton) {
+                toggleButton.style.display = "none";
+            }
+
+            if (greeting) {
+                greeting.style.display = "none";
+            }
+
+            if (liveDot) {
+                liveDot.style.display = "none";
+            }
+
+            if (unreadBadge) {
+                unreadBadge.style.display = "none";
+            }
+        });
+    });
 }
 
-function openChatbot() {
-    const chatbot = document.querySelector('.chatbot-widget');
-    const toggleButton = document.getElementById('kk-chat-toggle');
-    const greeting = document.getElementById('kk-chat-greeting');
-    const liveDot = document.querySelector('.kk-live-dot');
-    const unreadBadge = document.getElementById('kk-unread-badge');
+function closeChatbot() {
+
+    const chatbot =
+        document.querySelector(".chatbot-widget");
+
+    const toggleButton =
+        document.getElementById("kk-chat-toggle");
+
+    const liveDot =
+        document.querySelector(".kk-live-dot");
+
+    const unreadBadge =
+        document.getElementById("kk-unread-badge");
 
     if (chatbot) {
-        chatbot.style.display = 'flex';
+        chatbot.style.display = "none";
     }
 
     if (toggleButton) {
-        toggleButton.style.display = 'none';
+        toggleButton.style.display = "flex";
     }
 
-    if (greeting) {
-        greeting.style.display = 'none';
-    }
-
-    // Hide live status and unread notification
     if (liveDot) {
-        liveDot.style.display = 'none';
+        liveDot.style.display = "block";
     }
 
     if (unreadBadge) {
-        unreadBadge.style.display = 'none';
+        unreadBadge.style.display = "flex";
     }
-    notifyParentChatbotState("open");
+
+    window.parent.postMessage(
+        {
+            type: "KK_CHATBOT_STATE",
+            state: "closed"
+        },
+        "*"
+    );
 }
 
 /* ========================================================
@@ -384,4 +432,8 @@ window.addEventListener('load', function () {
 
     }, 5000);
 
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    closeChatbot();
 });
