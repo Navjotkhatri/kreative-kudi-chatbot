@@ -78,10 +78,10 @@
             isOpen = false;
 
             iframe.style.width =
-                CLOSED_WIDTH + "px";
+                CLOSED_SIZE + "px";
 
             iframe.style.height =
-                CLOSED_HEIGHT + "px";
+                CLOSED_SIZE + "px";
 
             iframe.style.right = "0";
             iframe.style.bottom = "0";
