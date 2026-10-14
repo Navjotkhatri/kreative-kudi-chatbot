@@ -4,19 +4,18 @@
     const CHATBOT_ORIGIN =
         "https://kreative-kudi-chatbot.navjotkhatri999.workers.dev";
 
-    const CLOSED_SIZE = "120px";
+    const CLOSED_SIZE = 120;
 
-    /*
-     * Open iframe is deliberately > 500px wide.
-     * Your current chatbot CSS uses:
-     *
-     * @media (max-width: 500px)
-     *
-     * Because media queries inside an iframe use the iframe
-     * viewport, 430px was incorrectly activating mobile mode.
-     */
-    const OPEN_WIDTH = "520px";
-    const OPEN_HEIGHT = "650px";
+    // Desktop iframe canvas.
+    // Chatbot itself remains 390 x 610.
+    const DESKTOP_WIDTH = 520;
+    const DESKTOP_HEIGHT = 650;
+
+    let isOpen = false;
+
+    function isMobile() {
+        return window.innerWidth <= 500;
+    }
 
     function init() {
 
@@ -25,7 +24,6 @@
         }
 
         const root = document.createElement("div");
-
         root.id = "kk-widget-root";
 
         Object.assign(root.style, {
@@ -51,14 +49,12 @@
         );
 
         Object.assign(iframe.style, {
-
             position: "fixed",
-
             right: "0",
             bottom: "0",
 
-            width: CLOSED_SIZE,
-            height: CLOSED_SIZE,
+            width: CLOSED_SIZE + "px",
+            height: CLOSED_SIZE + "px",
 
             border: "0",
             margin: "0",
@@ -67,32 +63,62 @@
             background: "transparent",
 
             display: "block",
-
             overflow: "hidden",
 
             pointerEvents: "auto",
 
             boxSizing: "border-box",
 
-            zIndex: "2147483647",
-
-            transition:
-                "width 0.2s ease, height 0.2s ease"
+            zIndex: "2147483647"
         });
 
-        function openFrame() {
+        function setClosedSize() {
 
-            iframe.style.width = OPEN_WIDTH;
-            iframe.style.height = OPEN_HEIGHT;
+            isOpen = false;
+
+            iframe.style.width =
+                CLOSED_SIZE + "px";
+
+            iframe.style.height =
+                CLOSED_SIZE + "px";
 
             iframe.style.right = "0";
             iframe.style.bottom = "0";
         }
 
-        function closeFrame() {
+        function setOpenSize() {
 
-            iframe.style.width = CLOSED_SIZE;
-            iframe.style.height = CLOSED_SIZE;
+            isOpen = true;
+
+            /*
+             * MOBILE
+             *
+             * iframe viewport follows the actual browser.
+             * This allows @media (max-width: 500px)
+             * inside the chatbot to activate.
+             */
+            if (isMobile()) {
+
+                iframe.style.width = "100vw";
+                iframe.style.height = "100dvh";
+
+                iframe.style.right = "0";
+                iframe.style.bottom = "0";
+
+                return;
+            }
+
+            /*
+             * DESKTOP
+             *
+             * Keep iframe >500px so mobile CSS
+             * does NOT activate.
+             */
+            iframe.style.width =
+                DESKTOP_WIDTH + "px";
+
+            iframe.style.height =
+                DESKTOP_HEIGHT + "px";
 
             iframe.style.right = "0";
             iframe.style.bottom = "0";
@@ -114,27 +140,32 @@
                 }
 
                 if (event.data.state === "open") {
-
-                    /*
-                     * IMPORTANT:
-                     * Resize parent iframe BEFORE allowing
-                     * the chatbot to settle into desktop mode.
-                     */
-                    openFrame();
+                    setOpenSize();
                 }
 
                 if (event.data.state === "closed") {
+                    setClosedSize();
+                }
+            }
+        );
 
-                    closeFrame();
+        /*
+         * Handle phone rotation and browser resize.
+         */
+        window.addEventListener(
+            "resize",
+            function () {
+
+                if (isOpen) {
+                    setOpenSize();
                 }
             }
         );
 
         root.appendChild(iframe);
-
         document.body.appendChild(root);
 
-        closeFrame();
+        setClosedSize();
 
         console.log(
             "Kreative Kudi chatbot embed loaded"
@@ -142,11 +173,8 @@
     }
 
     if (document.body) {
-
         init();
-
     } else {
-
         document.addEventListener(
             "DOMContentLoaded",
             init
