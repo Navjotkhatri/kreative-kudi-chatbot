@@ -4,8 +4,7 @@
     const CHATBOT_ORIGIN =
         "https://kreative-kudi-chatbot.navjotkhatri999.workers.dev";
 
-    const CLOSED_WIDTH = 300;
-    const CLOSED_HEIGHT = 120;
+    const CLOSED_SIZE = 120;
 
     // Desktop iframe canvas.
     // Chatbot itself remains 390 x 610.
